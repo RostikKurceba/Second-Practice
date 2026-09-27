@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Особистий кабінет</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/student.css">
+
+</head>
+
+<body>
+
+<header class="main-header">
+
+    <div class="header-content">
+
+        <h1>Student Management System</h1>
+
+        <div class="user-info">
+
+            <span id="userEmail"></span>
+
+            <span class="role-badge">
+                Студент
+            </span>
+
+            <button id="logoutButton">
+                Вийти
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="student-container">
+
+    <section class="welcome-section">
+
+        <h2>Особистий кабінет</h2>
+
+        <p>
+            Тут буде відображатися ваша навчальна інформація.
+        </p>
+
+    </section>
+
+
+    <section class="student-info-grid">
+
+        <div class="info-card">
+
+            <h3>Мій профіль</h3>
+
+            <p>
+                <strong>Email:</strong>
+            </p>
+
+            <p id="profileEmail">
+                Завантаження...
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>Моя група</h3>
+
+            <p id="studentGroup">
+                Ви ще не зараховані до групи.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>Мої дисципліни</h3>
+
+            <p id="studentDisciplines">
+                Дисципліни поки не призначені.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="/js/student.js"></script>
+
+</body>
+
+</html>

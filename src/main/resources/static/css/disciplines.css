@@ -1,0 +1,236 @@
+.disciplines-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+}
+
+.page-header p {
+    margin: 0;
+    color: #777;
+}
+
+.create-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.create-button:hover {
+    background: #444;
+}
+
+.discipline-card {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+
+    padding: 25px;
+    margin-bottom: 15px;
+
+    background: white;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.discipline-info {
+    flex: 1;
+}
+
+.discipline-info h2 {
+    margin: 0 0 8px;
+}
+
+.discipline-code {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background: #f0f0f0;
+    border-radius: 6px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.discipline-info p {
+    margin: 15px 0;
+    color: #666;
+}
+
+.discipline-hours {
+    font-weight: bold;
+}
+
+.discipline-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 9px 14px;
+
+    border: none;
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.edit-button {
+    background: #e9ecef;
+    color: #222;
+}
+
+.delete-button {
+    background: #dc3545;
+    color: white;
+}
+
+.edit-button:hover {
+    background: #d5d8db;
+}
+
+.delete-button:hover {
+    background: #bb2d3b;
+}
+
+.empty-state {
+    padding: 50px;
+    text-align: center;
+
+    color: #777;
+
+    background: white;
+    border-radius: 12px;
+}
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    padding: 20px;
+}
+
+.modal {
+    width: 100%;
+    max-width: 550px;
+
+    padding: 30px;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#formMessage {
+    color: #dc3545;
+    min-height: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.save-button,
+.cancel-button {
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.save-button {
+    background: #222;
+    color: white;
+}
+
+.cancel-button {
+    background: #e9ecef;
+    color: #222;
+}
+
+@media (max-width: 700px) {
+
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .discipline-card {
+        flex-direction: column;
+    }
+
+    .discipline-actions {
+        justify-content: flex-end;
+    }
+
+}

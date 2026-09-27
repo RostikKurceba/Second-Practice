@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management</title>
+
+</head>
+
+<body>
+
+<h1>Інформаційна система обліку студентів</h1>
+
+<p id="userInfo"></p>
+
+<button id="logoutButton">
+    Вийти
+</button>
+
+<script>
+
+    async function checkUser() {
+
+        const response =
+            await fetch("/api/auth/me");
+
+        if (!response.ok) {
+
+            window.location.href = "/login.html";
+
+            return;
+        }
+
+        const user = await response.json();
+
+        document.getElementById("userInfo").textContent =
+            "Ви увійшли як: " + user.email;
+    }
+
+    document
+        .getElementById("logoutButton")
+        .addEventListener("click", async function () {
+
+            await fetch("/api/auth/logout", {
+                method: "POST"
+            });
+
+            window.location.href = "/login.html";
+        });
+
+    checkUser();
+
+</script>
+
+</body>
+
+</html>

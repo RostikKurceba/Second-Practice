@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Групи</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/groups.css">
+
+</head>
+
+<body>
+
+<header class="main-header">
+
+    <div class="header-content">
+
+        <h1>Student Management System</h1>
+
+        <div class="user-info">
+
+            <span id="userEmail"></span>
+
+            <span class="role-badge">
+                Адміністратор
+            </span>
+
+            <button id="logoutButton">
+                Вийти
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="groups-container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Навчальні групи</h2>
+
+            <p>
+                Керування групами студентів
+            </p>
+
+        </div>
+
+        <button id="addGroupButton">
+            + Створити групу
+        </button>
+
+    </div>
+
+
+    <div id="groupsList" class="groups-list">
+
+        <p>
+            Завантаження...
+        </p>
+
+    </div>
+
+</main>
+
+
+<div id="groupModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2 id="modalTitle">
+            Створення групи
+        </h2>
+
+        <form id="groupForm">
+
+            <input
+                    type="hidden"
+                    id="groupId"
+            >
+
+            <div class="form-group">
+
+                <label for="groupName">
+                    Назва групи
+                </label>
+
+                <input
+                        type="text"
+                        id="groupName"
+                        placeholder="Наприклад: ІПЗ-21"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="specialty">
+                    Спеціальність
+                </label>
+
+                <input
+                        type="text"
+                        id="specialty"
+                        placeholder="Інженерія програмного забезпечення"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="course">
+                    Курс
+                </label>
+
+                <input
+                        type="number"
+                        id="course"
+                        min="1"
+                        max="6"
+                        required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="year">
+                    Рік навчання
+                </label>
+
+                <input
+                        type="number"
+                        id="year"
+                        min="2000"
+                        max="2100"
+                        required
+                >
+
+            </div>
+
+
+            <p id="formMessage"></p>
+
+
+            <div class="modal-buttons">
+
+                <button type="submit">
+                    Зберегти
+                </button>
+
+                <button
+                        type="button"
+                        id="cancelButton"
+                >
+                    Скасувати
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="/js/groups.js"></script>
+
+</body>
+
+</html>

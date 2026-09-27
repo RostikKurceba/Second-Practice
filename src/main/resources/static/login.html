@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Вхід</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>Вхід</h1>
+
+        <p class="subtitle">
+            Увійдіть до інформаційної системи
+        </p>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+
+                <input
+                        type="email"
+                        id="email"
+                        placeholder="Введіть email"
+                        required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль</label>
+
+                <input
+                        type="password"
+                        id="password"
+                        placeholder="Введіть пароль"
+                        required
+                >
+            </div>
+
+            <button type="submit">
+                Увійти
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <p class="switch-auth">
+            Немає облікового запису?
+            <a href="/register.html">Зареєструватися</a>
+        </p>
+
+    </div>
+
+</div>
+
+<script src="/js/login.js"></script>
+
+</body>
+</html>

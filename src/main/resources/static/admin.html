@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Панель адміністратора</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+
+</head>
+
+<body>
+
+<header class="main-header">
+
+    <div class="header-content">
+
+        <h1>Student Management System</h1>
+
+        <div class="user-info">
+
+            <span id="userEmail"></span>
+
+            <span class="role-badge">
+                Адміністратор
+            </span>
+
+            <button id="logoutButton">
+                Вийти
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="admin-container">
+
+    <section class="welcome-section">
+
+        <h2>Панель адміністратора</h2>
+
+        <p>
+            Керуйте студентами, навчальними групами
+            та дисциплінами.
+        </p>
+
+    </section>
+
+
+    <section class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                👨‍🎓
+            </div>
+
+            <h3>Студенти</h3>
+
+            <p>
+                Перегляд та керування студентами.
+            </p>
+
+            <button>
+                Перейти
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <h3>Групи</h3>
+
+            <p>
+                Створення та керування навчальними групами.
+            </p>
+
+            <button onclick="window.location.href='/groups.html'">
+                Перейти
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                📚
+            </div>
+
+            <h3>Дисципліни</h3>
+
+            <p>
+                Створення та керування навчальними дисциплінами.
+            </p>
+
+            <button onclick="window.location.href='/disciplines.html'">
+                Перейти
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="statistics-section">
+
+        <h2>Статистика</h2>
+
+        <div class="statistics-grid">
+
+            <div class="stat-card">
+
+                <span class="stat-title">
+                    Студенти
+                </span>
+
+                <strong id="studentCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-title">
+                    Групи
+                </span>
+
+                <strong id="groupCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-title">
+                    Дисципліни
+                </span>
+
+                <strong id="disciplineCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="/js/admin.js"></script>
+
+</body>
+
+</html>
