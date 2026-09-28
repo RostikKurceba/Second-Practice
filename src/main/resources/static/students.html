@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Студенти</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/students.css">
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <header class="page-header">
+
+        <div>
+            <h1>Студенти</h1>
+            <p>Список зареєстрованих студентів</p>
+        </div>
+
+        <button
+                class="back-button"
+                onclick="window.location.href='/admin.html'"
+        >
+            Назад
+        </button>
+
+    </header>
+
+    <main>
+
+        <div class="filters">
+
+            <div class="filter-group">
+                <label for="facultyFilter">
+                    Факультет
+                </label>
+
+                <select id="facultyFilter">
+                    <option value="">Усі факультети</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="courseFilter">
+                    Курс
+                </label>
+
+                <select id="courseFilter">
+                    <option value="">Усі курси</option>
+                    <option value="1">1 курс</option>
+                    <option value="2">2 курс</option>
+                    <option value="3">3 курс</option>
+                    <option value="4">4 курс</option>
+                    <option value="5">5 курс</option>
+                    <option value="6">6 курс</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div id="studentsList">
+
+            <div class="empty-state">
+                Завантаження...
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- Модальне вікно призначення групи -->
+
+<div
+        class="modal-overlay"
+        id="groupModalOverlay"
+        style="display: none;"
+>
+
+    <div class="modal-content">
+
+        <h2>Призначення групи</h2>
+
+        <p id="groupStudentName"></p>
+
+        <div class="form-group">
+
+            <label for="groupSelect">
+                Група
+            </label>
+
+            <select id="groupSelect">
+                <option value="">
+                    Завантаження...
+                </option>
+            </select>
+
+        </div>
+
+        <p id="groupMessage"></p>
+
+        <div class="modal-actions">
+
+            <button
+                    type="button"
+                    class="save-button"
+                    id="saveGroupButton"
+            >
+                Зберегти
+            </button>
+
+            <button
+                    type="button"
+                    class="cancel-button"
+                    id="cancelGroupButton"
+            >
+                Скасувати
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="/js/students.js"></script>
+
+</body>
+</html>

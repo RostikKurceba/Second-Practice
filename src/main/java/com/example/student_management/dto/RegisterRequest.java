@@ -8,19 +8,34 @@ import jakarta.validation.constraints.Size;
 
 public class RegisterRequest {
 
-    @NotBlank(message = "Email не може бути порожнім")
-    @Email(message = "Некоректний email")
+    @NotBlank
+    @Email
     private String email;
 
-    @NotBlank(message = "Пароль не може бути порожнім")
-    @Size(min = 6, message = "Пароль повинен містити щонайменше 6 символів")
+    @NotBlank
+    @Size(min = 6)
     private String password;
 
-    @NotBlank(message = "Підтвердження пароля не може бути порожнім")
+    @NotBlank
     private String confirmPassword;
 
-    @NotNull(message = "Необхідно вибрати роль")
+    @NotNull
     private Role role;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String patronymic;
+
+    private String phone;
+
+    private String faculty;
+
+    private Integer course;
+
+    public RegisterRequest() {
+    }
 
     public String getEmail() {
         return email;
@@ -38,6 +53,30 @@ public class RegisterRequest {
         return role;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getFaculty() {
+        return faculty;
+    }
+
+    public Integer getCourse() {
+        return course;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -52,5 +91,29 @@ public class RegisterRequest {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public void setCourse(Integer course) {
+        this.course = course;
     }
 }

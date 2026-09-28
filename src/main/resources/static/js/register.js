@@ -1,75 +1,195 @@
-const registerForm = document.getElementById("registerForm");
-const message = document.getElementById("message");
+const registerForm =
+    document.getElementById("registerForm");
 
-registerForm.addEventListener("submit", async function (event) {
+const message =
+    document.getElementById("message");
 
-    event.preventDefault();
+const studentFields =
+    document.getElementById("studentFields");
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
+const roleInputs =
+    document.querySelectorAll(
+        'input[name="role"]'
+    );
+
+
+function updateStudentFields() {
 
     const selectedRole =
-        document.querySelector('input[name="role"]:checked');
+        document.querySelector(
+            'input[name="role"]:checked'
+        );
 
     if (!selectedRole) {
-
-        message.textContent =
-            "Оберіть роль";
-
+        studentFields.style.display = "none";
         return;
     }
 
-    const role = selectedRole.value;
+    if (selectedRole.value === "STUDENT") {
 
-    if (password !== confirmPassword) {
+        studentFields.style.display = "block";
 
-        message.textContent =
-            "Паролі не співпадають";
+    } else {
 
-        return;
+        studentFields.style.display = "none";
+
     }
+}
 
-    try {
 
-        const response = await fetch("/api/auth/register", {
+roleInputs.forEach(input => {
 
-            method: "POST",
+    input.addEventListener(
+        "change",
+        updateStudentFields
+    );
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+});
 
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                confirmPassword: confirmPassword,
-                role: role
-            })
-        });
 
-        const data = await response.text();
+registerForm.addEventListener(
+    "submit",
+    async function (event) {
 
-        if (response.ok) {
+        event.preventDefault();
+
+        message.textContent = "";
+
+        const selectedRole =
+            document.querySelector(
+                'input[name="role"]:checked'
+            );
+
+        if (!selectedRole) {
 
             message.textContent =
-                "Реєстрація успішна! Перенаправлення...";
+                "Оберіть роль";
 
-            setTimeout(() => {
-                window.location.href = "/login.html";
-            }, 1000);
-
-        } else {
-
-            message.textContent = data;
+            return;
         }
 
-    } catch (error) {
 
-        console.error(error);
+        const role =
+            selectedRole.value;
 
-        message.textContent =
-            "Не вдалося підключитися до сервера";
+
+        const data = {
+
+            email:
+                document.getElementById(
+                    "email"
+                ).value,
+
+            password:
+                document.getElementById(
+                    "password"
+                ).value,
+
+            confirmPassword:
+                document.getElementById(
+                    "confirmPassword"
+                ).value,
+
+            role: role
+
+        };
+
+
+        if (role === "STUDENT") {
+
+            data.firstName =
+                document.getElementById(
+                    "firstName"
+                ).value;
+
+            data.lastName =
+                document.getElementById(
+                    "lastName"
+                ).value;
+
+            data.patronymic =
+                document.getElementById(
+                    "patronymic"
+                ).value;
+
+            data.phone =
+                document.getElementById(
+                    "phone"
+                ).value;
+
+            data.faculty =
+                document.getElementById(
+                    "faculty"
+                ).value;
+
+            data.course =
+                Number(
+                    document.getElementById(
+                        "course"
+                    ).value
+                );
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/auth/register",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(data)
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                message.textContent =
+                    result.message ||
+                    "Помилка реєстрації";
+
+                return;
+            }
+
+
+            message.textContent =
+                result.message ||
+                "Реєстрація успішна";
+
+
+            setTimeout(
+                () => {
+                    window.location.href =
+                        "/login.html";
+                },
+                1000
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Не вдалося підключитися до сервера";
+
+        }
+
     }
-});
+);
+
+
+updateStudentFields();

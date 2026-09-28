@@ -58,21 +58,11 @@ public class StudentGroupService {
         StudentGroup group =
                 getGroupById(id);
 
-        group.setName(
-                updatedGroup.getName()
-        );
-
-        group.setSpecialty(
-                updatedGroup.getSpecialty()
-        );
-
-        group.setCourse(
-                updatedGroup.getCourse()
-        );
-
-        group.setYear(
-                updatedGroup.getYear()
-        );
+        group.setName(updatedGroup.getName());
+        group.setFaculty(updatedGroup.getFaculty());
+        group.setSpecialty(updatedGroup.getSpecialty());
+        group.setCourse(updatedGroup.getCourse());
+        group.setYear(updatedGroup.getYear());
 
         return groupRepository.save(group);
     }

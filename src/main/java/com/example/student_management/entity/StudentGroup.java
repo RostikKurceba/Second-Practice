@@ -1,5 +1,6 @@
 package com.example.student_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ public class StudentGroup {
 
     @Column(nullable = false, unique = true, length = 50)
     private String name;
+
+    @Column(nullable = false, length = 150)
+    private String faculty;
 
     @Column(nullable = false, length = 150)
     private String specialty;
@@ -38,11 +42,13 @@ public class StudentGroup {
 
     public StudentGroup(
             String name,
+            String faculty,
             String specialty,
             Integer course,
             Integer year
     ) {
         this.name = name;
+        this.faculty = faculty;
         this.specialty = specialty;
         this.course = course;
         this.year = year;
@@ -54,6 +60,10 @@ public class StudentGroup {
 
     public String getName() {
         return name;
+    }
+
+    public String getFaculty() {
+        return faculty;
     }
 
     public String getSpecialty() {
@@ -78,6 +88,10 @@ public class StudentGroup {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
 
     public void setSpecialty(String specialty) {
