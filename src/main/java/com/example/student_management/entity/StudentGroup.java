@@ -2,6 +2,9 @@ package com.example.student_management.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "student_groups")
 public class StudentGroup {
@@ -21,6 +24,14 @@ public class StudentGroup {
 
     @Column(nullable = false)
     private Integer year;
+
+    @ManyToMany
+    @JoinTable(
+            name = "group_disciplines",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "discipline_id")
+    )
+    private List<Discipline> disciplines = new ArrayList<>();
 
     public StudentGroup() {
     }
@@ -57,6 +68,10 @@ public class StudentGroup {
         return year;
     }
 
+    public List<Discipline> getDisciplines() {
+        return disciplines;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,5 +90,9 @@ public class StudentGroup {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public void setDisciplines(List<Discipline> disciplines) {
+        this.disciplines = disciplines;
     }
 }

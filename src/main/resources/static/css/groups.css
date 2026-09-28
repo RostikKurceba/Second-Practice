@@ -225,3 +225,63 @@
 #cancelButton {
     background: #ddd;
 }
+
+.disciplines-button {
+    padding: 9px 14px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #222;
+    color: white;
+
+    cursor: pointer;
+}
+
+.disciplines-button:hover {
+    background: #444;
+}
+
+.disciplines-modal {
+    max-width: 600px;
+}
+
+#disciplinesGroupName {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.discipline-option {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    margin-bottom: 8px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.discipline-option:hover {
+    background: #f7f7f7;
+}
+
+.discipline-option input {
+    width: 18px;
+    height: 18px;
+}
+
+.discipline-option span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.discipline-option small {
+    color: #777;
+}

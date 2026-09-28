@@ -1,6 +1,8 @@
 package com.example.student_management.service;
 
+import com.example.student_management.entity.Discipline;
 import com.example.student_management.entity.StudentGroup;
+import com.example.student_management.repository.DisciplineRepository;
 import com.example.student_management.repository.StudentGroupRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +12,17 @@ import java.util.List;
 public class StudentGroupService {
 
     private final StudentGroupRepository groupRepository;
+    private final DisciplineRepository disciplineRepository;
 
     public StudentGroupService(
-            StudentGroupRepository groupRepository
+            StudentGroupRepository groupRepository,
+            DisciplineRepository disciplineRepository
     ) {
         this.groupRepository = groupRepository;
+        this.disciplineRepository = disciplineRepository;
     }
 
     public List<StudentGroup> getAllGroups() {
-
         return groupRepository.findAll();
     }
 
@@ -51,12 +55,24 @@ public class StudentGroupService {
             StudentGroup updatedGroup
     ) {
 
-        StudentGroup group = getGroupById(id);
+        StudentGroup group =
+                getGroupById(id);
 
-        group.setName(updatedGroup.getName());
-        group.setSpecialty(updatedGroup.getSpecialty());
-        group.setCourse(updatedGroup.getCourse());
-        group.setYear(updatedGroup.getYear());
+        group.setName(
+                updatedGroup.getName()
+        );
+
+        group.setSpecialty(
+                updatedGroup.getSpecialty()
+        );
+
+        group.setCourse(
+                updatedGroup.getCourse()
+        );
+
+        group.setYear(
+                updatedGroup.getYear()
+        );
 
         return groupRepository.save(group);
     }
@@ -71,5 +87,40 @@ public class StudentGroupService {
         }
 
         groupRepository.deleteById(id);
+    }
+
+    public List<Discipline> getGroupDisciplines(
+            Long groupId
+    ) {
+
+        StudentGroup group =
+                getGroupById(groupId);
+
+        return group.getDisciplines();
+    }
+
+    public StudentGroup setGroupDisciplines(
+            Long groupId,
+            List<Long> disciplineIds
+    ) {
+
+        StudentGroup group =
+                getGroupById(groupId);
+
+        List<Discipline> disciplines =
+                disciplineRepository.findAllById(
+                        disciplineIds
+                );
+
+        if (disciplines.size() != disciplineIds.size()) {
+
+            throw new IllegalArgumentException(
+                    "Одну або декілька дисциплін не знайдено"
+            );
+        }
+
+        group.setDisciplines(disciplines);
+
+        return groupRepository.save(group);
     }
 }

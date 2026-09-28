@@ -148,4 +148,54 @@ public class StudentGroupController {
                     .body(e.getMessage());
         }
     }
+    @GetMapping("/{id}/disciplines")
+    public ResponseEntity<?> getGroupDisciplines(
+            @PathVariable Long id,
+            HttpSession session
+    ) {
+
+        if (!isAdmin(session)) {
+            return ResponseEntity.status(403)
+                    .body("Доступ заборонено");
+        }
+
+        try {
+
+            return ResponseEntity.ok(
+                    groupService.getGroupDisciplines(id)
+            );
+
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/disciplines")
+    public ResponseEntity<?> setGroupDisciplines(
+            @PathVariable Long id,
+            @RequestBody List<Long> disciplineIds,
+            HttpSession session
+    ) {
+
+        if (!isAdmin(session)) {
+            return ResponseEntity.status(403)
+                    .body("Доступ заборонено");
+        }
+
+        try {
+
+            return ResponseEntity.ok(
+                    groupService.setGroupDisciplines(
+                            id,
+                            disciplineIds
+                    )
+            );
+
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
+        }
+    }
 }

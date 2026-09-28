@@ -1,6 +1,9 @@
 package com.example.student_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "disciplines")
@@ -21,6 +24,18 @@ public class Discipline {
 
     @Column(nullable = false)
     private Integer hours;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "disciplines")
+    private List<StudentGroup> groups = new ArrayList<>();
+
+    public List<StudentGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<StudentGroup> groups) {
+        this.groups = groups;
+    }
 
     public Discipline() {
     }

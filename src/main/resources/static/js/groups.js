@@ -1,3 +1,5 @@
+let selectedGroupId = null;
+
 const groupsList =
     document.getElementById("groupsList");
 
@@ -13,6 +15,112 @@ const modalTitle =
 const formMessage =
     document.getElementById("formMessage");
 
+async function openDisciplinesModal(groupId) {
+
+    selectedGroupId = groupId;
+
+    const modal =
+        document.getElementById(
+            "disciplinesModalOverlay"
+        );
+
+    const selection =
+        document.getElementById(
+            "disciplinesSelection"
+        );
+
+    const groupName =
+        document.getElementById(
+            "disciplinesGroupName"
+        );
+
+    const message =
+        document.getElementById(
+            "disciplinesMessage"
+        );
+
+    selection.innerHTML = `
+        <div class="empty-state">
+            Завантаження...
+        </div>
+    `;
+
+    message.textContent = "";
+
+    modal.style.display = "flex";
+
+    try {
+
+        const groupsResponse =
+            await fetch("/api/groups");
+
+        if (!groupsResponse.ok) {
+            throw new Error(
+                "Не вдалося завантажити групи"
+            );
+        }
+
+        const groups =
+            await groupsResponse.json();
+
+        const group =
+            groups.find(
+                item => item.id === groupId
+            );
+
+        if (group) {
+
+            groupName.textContent =
+                `${group.name} • ${group.specialty}`;
+        }
+
+        const disciplinesResponse =
+            await fetch("/api/disciplines");
+
+        if (!disciplinesResponse.ok) {
+            throw new Error(
+                "Не вдалося завантажити дисципліни"
+            );
+        }
+
+        const disciplines =
+            await disciplinesResponse.json();
+
+        const groupDisciplinesResponse =
+            await fetch(
+                `/api/groups/${groupId}/disciplines`
+            );
+
+        if (!groupDisciplinesResponse.ok) {
+            throw new Error(
+                "Не вдалося отримати дисципліни групи"
+            );
+        }
+
+        const groupDisciplines =
+            await groupDisciplinesResponse.json();
+
+        const selectedIds =
+            groupDisciplines.map(
+                discipline => discipline.id
+            );
+
+        renderDisciplineSelection(
+            disciplines,
+            selectedIds
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        selection.innerHTML = `
+            <div class="empty-state">
+                Не вдалося завантажити дисципліни.
+            </div>
+        `;
+    }
+}
 
 async function checkAdmin() {
 
@@ -44,6 +152,139 @@ async function checkAdmin() {
     return true;
 }
 
+function renderDisciplineSelection(
+    disciplines,
+    selectedIds
+) {
+
+    const selection =
+        document.getElementById(
+            "disciplinesSelection"
+        );
+
+    if (disciplines.length === 0) {
+
+        selection.innerHTML = `
+            <div class="empty-state">
+                Дисциплін поки немає.
+                Спочатку створіть дисципліни.
+            </div>
+        `;
+
+        return;
+    }
+
+    selection.innerHTML =
+        disciplines.map(discipline => {
+
+            const checked =
+                selectedIds.includes(
+                    discipline.id
+                )
+                    ? "checked"
+                    : "";
+
+            return `
+                <label class="discipline-option">
+
+                    <input
+                        type="checkbox"
+                        value="${discipline.id}"
+                        ${checked}
+                    >
+
+                    <span>
+                        <strong>
+                            ${escapeHtml(
+                                discipline.name
+                            )}
+                        </strong>
+
+                        <small>
+                            ${escapeHtml(
+                                discipline.code
+                            )}
+                            •
+                            ${discipline.hours} год.
+                        </small>
+                    </span>
+
+                </label>
+            `;
+
+        }).join("");
+}
+
+async function saveGroupDisciplines() {
+
+    if (!selectedGroupId) {
+        return;
+    }
+
+    const checkboxes =
+        document.querySelectorAll(
+            "#disciplinesSelection input[type='checkbox']"
+        );
+
+    const disciplineIds =
+        Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => Number(checkbox.value));
+
+    const message =
+        document.getElementById(
+            "disciplinesMessage"
+        );
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/groups/${selectedGroupId}/disciplines`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(
+                        disciplineIds
+                    )
+                }
+            );
+
+        const data =
+            await response.text();
+
+        if (!response.ok) {
+
+            message.textContent = data;
+
+            return;
+        }
+
+        closeDisciplinesModal();
+
+        await loadGroups();
+
+    } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Не вдалося зберегти дисципліни";
+    }
+}
+
+function closeDisciplinesModal() {
+
+    document.getElementById(
+        "disciplinesModalOverlay"
+    ).style.display = "none";
+
+    selectedGroupId = null;
+}
 
 async function loadGroups() {
 
@@ -107,6 +348,13 @@ async function loadGroups() {
                 </div>
 
                 <div class="group-actions">
+
+                    <button
+                        class="disciplines-button"
+                        onclick="openDisciplinesModal(${group.id})"
+                    >
+                        Дисципліни
+                    </button>
 
                     <button
                         onclick="editGroup(
@@ -383,5 +631,18 @@ async function init() {
     }
 }
 
+document
+    .getElementById("saveDisciplinesButton")
+    .addEventListener(
+        "click",
+        saveGroupDisciplines
+    );
+
+document
+    .getElementById("cancelDisciplinesButton")
+    .addEventListener(
+        "click",
+        closeDisciplinesModal
+    );
 
 init();
