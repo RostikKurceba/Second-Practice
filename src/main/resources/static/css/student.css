@@ -1,77 +1,203 @@
-.main-header {
-    background: #222;
-    color: white;
-    padding: 18px 30px;
+* {
+    box-sizing: border-box;
 }
 
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-content h1 {
+body {
     margin: 0;
-    font-size: 22px;
+    font-family: Arial, sans-serif;
+    background: #f5f6f8;
+    color: #222;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.student-page {
+    min-height: 100vh;
 }
 
-.role-badge {
-    background: #555;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 13px;
+.student-content {
+    width: 90%;
+    max-width: 1000px;
+
+    margin: 30px auto;
 }
 
-.user-info button {
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.student-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.welcome-section {
-    margin-bottom: 30px;
-}
-
-.student-info-grid {
-    display: grid;
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 20px;
-}
-
-.info-card {
+.student-section {
     background: white;
 
     padding: 25px;
+    margin-bottom: 25px;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.info-card h3 {
+.student-section h2 {
     margin-top: 0;
     margin-bottom: 20px;
+
+    font-size: 22px;
 }
 
-.info-card p {
+
+/* Особисті дані */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 14px;
+
+    background: #f7f7f7;
+
+    border-radius: 7px;
+}
+
+.info-label {
+    font-size: 13px;
+    color: #777;
+}
+
+
+/* Група */
+
+.group-card {
+    padding: 20px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+}
+
+.group-name {
+    margin: 0 0 15px;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.group-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+.group-detail {
+    padding: 10px;
+
+    background: white;
+
+    border-radius: 6px;
+}
+
+.group-detail-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 12px;
+    color: #777;
+}
+
+.no-group {
+    padding: 20px;
+
+    background: #fff8e1;
+
+    border-radius: 8px;
+
+    color: #856404;
+}
+
+
+/* Дисципліни */
+
+.disciplines-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+.discipline-card {
+    padding: 18px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+
+    border-left: 4px solid #555;
+}
+
+.discipline-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 18px;
+}
+
+.discipline-code {
+    margin-bottom: 10px;
+
+    font-size: 13px;
+
     color: #666;
+}
+
+.discipline-description {
+    margin-bottom: 12px;
+
+    line-height: 1.4;
+
+    color: #444;
+}
+
+.discipline-hours {
+    font-size: 13px;
+    color: #666;
+}
+
+.no-disciplines {
+    padding: 20px;
+
+    background: #f7f7f7;
+
+    border-radius: 8px;
+
+    color: #666;
+}
+
+.loading {
+    color: #777;
+}
+
+
+/* Телефон */
+
+@media (max-width: 700px) {
+
+    .student-content {
+        width: 94%;
+    }
+
+    .info-grid,
+    .group-details,
+    .disciplines-grid {
+        grid-template-columns: 1fr;
+    }
+
 }

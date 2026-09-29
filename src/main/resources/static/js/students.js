@@ -2,6 +2,50 @@ let students = [];
 let groups = [];
 let selectedStudentId = null;
 
+async function checkAdmin() {
+
+    try {
+
+        const response =
+            await fetch("/api/auth/me");
+
+        if (!response.ok) {
+
+            window.location.href =
+                "/login.html";
+
+            return false;
+        }
+
+        const user =
+            await response.json();
+
+        if (user.role !== "ADMIN") {
+
+            window.location.href =
+                "/login.html";
+
+            return false;
+        }
+
+        document.getElementById("userEmail")
+            .textContent = user.email;
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Помилка перевірки авторизації:",
+            error
+        );
+
+        window.location.href =
+            "/login.html";
+
+        return false;
+    }
+}
 
 const studentsList =
     document.getElementById("studentsList");
@@ -439,4 +483,40 @@ groupModalOverlay.addEventListener(
 );
 
 
-loadStudents();
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                await fetch(
+                    "/api/auth/logout",
+                    {
+                        method: "POST"
+                    }
+                );
+
+            } finally {
+
+                window.location.href =
+                    "/login.html";
+            }
+        }
+    );
+
+
+async function init() {
+
+    const isAdmin =
+        await checkAdmin();
+
+    if (!isAdmin) {
+        return;
+    }
+
+    loadStudents();
+}
+
+init();

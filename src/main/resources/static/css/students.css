@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .page-container {
     width: 90%;
     max-width: 1200px;

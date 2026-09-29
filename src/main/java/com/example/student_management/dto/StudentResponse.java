@@ -1,5 +1,7 @@
 package com.example.student_management.dto;
 
+import java.util.List;
+
 public class StudentResponse {
 
     private Long id;
@@ -16,6 +18,11 @@ public class StudentResponse {
 
     private Long groupId;
     private String groupName;
+    private String groupSpecialty;
+    private Integer groupCourse;
+    private Integer groupYear;
+
+    private List<DisciplineResponse> disciplines;
 
     public StudentResponse() {
     }
@@ -30,7 +37,11 @@ public class StudentResponse {
             Integer course,
             String email,
             Long groupId,
-            String groupName
+            String groupName,
+            String groupSpecialty,
+            Integer groupCourse,
+            Integer groupYear,
+            List<DisciplineResponse> disciplines
     ) {
         this.id = id;
         this.firstName = firstName;
@@ -42,6 +53,10 @@ public class StudentResponse {
         this.email = email;
         this.groupId = groupId;
         this.groupName = groupName;
+        this.groupSpecialty = groupSpecialty;
+        this.groupCourse = groupCourse;
+        this.groupYear = groupYear;
+        this.disciplines = disciplines;
     }
 
     public Long getId() {
@@ -82,5 +97,21 @@ public class StudentResponse {
 
     public String getGroupName() {
         return groupName;
+    }
+
+    public String getGroupSpecialty() {
+        return groupSpecialty;
+    }
+
+    public Integer getGroupCourse() {
+        return groupCourse;
+    }
+
+    public Integer getGroupYear() {
+        return groupYear;
+    }
+
+    public List<DisciplineResponse> getDisciplines() {
+        return disciplines;
     }
 }

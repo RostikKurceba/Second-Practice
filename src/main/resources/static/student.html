@@ -1,107 +1,127 @@
 <!DOCTYPE html>
 <html lang="uk">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Особистий кабінет</title>
+    <title>Кабінет студента</title>
 
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/student.css">
-
 </head>
 
 <body>
 
-<header class="main-header">
+<div class="student-page">
 
-    <div class="header-content">
+    <header class="main-header">
 
-        <h1>Student Management System</h1>
+        <div class="header-content">
 
-        <div class="user-info">
+            <h1>Student Management System</h1>
 
-            <span id="userEmail"></span>
+            <div class="user-info">
 
-            <span class="role-badge">
-                Студент
-            </span>
+                <span id="studentEmail">
+                    Завантаження...
+                </span>
 
-            <button id="logoutButton">
-                Вийти
-            </button>
+                <span class="role-badge">
+                    Студент
+                </span>
 
-        </div>
+                <button id="logoutButton">
+                    Вийти
+                </button>
 
-    </div>
-
-</header>
-
-
-<main class="student-container">
-
-    <section class="welcome-section">
-
-        <h2>Особистий кабінет</h2>
-
-        <p>
-            Тут буде відображатися ваша навчальна інформація.
-        </p>
-
-    </section>
-
-
-    <section class="student-info-grid">
-
-        <div class="info-card">
-
-            <h3>Мій профіль</h3>
-
-            <p>
-                <strong>Email:</strong>
-            </p>
-
-            <p id="profileEmail">
-                Завантаження...
-            </p>
+            </div>
 
         </div>
 
-
-        <div class="info-card">
-
-            <h3>Моя група</h3>
-
-            <p id="studentGroup">
-                Ви ще не зараховані до групи.
-            </p>
-
-        </div>
+    </header>
 
 
-        <div class="info-card">
+    <main class="student-content">
 
-            <h3>Мої дисципліни</h3>
+        <!-- Особисті дані -->
+        <section class="student-section">
 
-            <p id="studentDisciplines">
-                Дисципліни поки не призначені.
-            </p>
+            <h2>Особисті дані</h2>
 
-        </div>
+            <div class="info-grid">
 
-    </section>
+                <div class="info-item">
+                    <span class="info-label">Ім'я</span>
+                    <span id="studentFirstName">-</span>
+                </div>
 
-</main>
+                <div class="info-item">
+                    <span class="info-label">Прізвище</span>
+                    <span id="studentLastName">-</span>
+                </div>
 
+                <div class="info-item">
+                    <span class="info-label">По батькові</span>
+                    <span id="studentPatronymic">-</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Телефон</span>
+                    <span id="studentPhone">-</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Факультет</span>
+                    <span id="studentFaculty">-</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Курс</span>
+                    <span id="studentCourse">-</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Група -->
+        <section class="student-section">
+
+            <h2>Моя група</h2>
+
+            <div id="groupInfo">
+
+                <div class="no-group">
+                    Групу ще не призначено
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Дисципліни -->
+        <section class="student-section">
+
+            <h2>Мої дисципліни</h2>
+
+            <div id="disciplinesList">
+
+                <div class="loading">
+                    Завантаження...
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
 
 <script src="/js/student.js"></script>
 
 </body>
-
 </html>

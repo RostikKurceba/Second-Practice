@@ -17,7 +17,7 @@ public class StudentGroup {
     @Column(nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 150)
+    @Column(length = 150)
     private String faculty;
 
     @Column(nullable = false, length = 150)

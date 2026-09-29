@@ -43,6 +43,27 @@ public class StudentService {
         return toResponse(student);
     }
 
+    public StudentResponse getCurrentStudent(Long userId) {
+
+        Student student = studentRepository.findByUserId(userId)
+                .orElseThrow(() ->
+                        new IllegalArgumentException(
+                                "Студента не знайдено"
+                        )
+                );
+
+        return toResponse(student);
+    }
+
+    public List<StudentResponse> getStudentsByGroup(Long groupId) {
+
+        return studentRepository
+                .findByStudentGroupId(groupId)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
     public StudentResponse assignGroup(
             Long studentId,
             Long groupId
@@ -74,10 +95,34 @@ public class StudentService {
 
         Long groupId = null;
         String groupName = null;
+        String groupSpecialty = null;
+        Integer groupCourse = null;
+        Integer groupYear = null;
+
+        java.util.List<com.example.student_management.dto.DisciplineResponse> disciplines =
+                new java.util.ArrayList<>();
 
         if (student.getStudentGroup() != null) {
+
             groupId = student.getStudentGroup().getId();
             groupName = student.getStudentGroup().getName();
+            groupSpecialty = student.getStudentGroup().getSpecialty();
+            groupCourse = student.getStudentGroup().getCourse();
+            groupYear = student.getStudentGroup().getYear();
+
+            for (com.example.student_management.entity.Discipline discipline
+                    : student.getStudentGroup().getDisciplines()) {
+
+                disciplines.add(
+                        new com.example.student_management.dto.DisciplineResponse(
+                                discipline.getId(),
+                                discipline.getName(),
+                                discipline.getCode(),
+                                discipline.getDescription(),
+                                discipline.getHours()
+                        )
+                );
+            }
         }
 
         return new StudentResponse(
@@ -90,7 +135,11 @@ public class StudentService {
                 student.getCourse(),
                 student.getUser().getEmail(),
                 groupId,
-                groupName
+                groupName,
+                groupSpecialty,
+                groupCourse,
+                groupYear,
+                disciplines
         );
     }
 }

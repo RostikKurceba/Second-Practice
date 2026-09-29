@@ -285,3 +285,62 @@
 .discipline-option small {
     color: #777;
 }
+
+.students-modal {
+    max-width: 650px;
+}
+
+#studentsGroupName {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.student-group-item {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    background: #fafafa;
+}
+
+.student-group-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.student-group-info span {
+    font-size: 14px;
+    color: #777;
+}
+
+.student-group-course {
+    white-space: nowrap;
+
+    font-size: 14px;
+
+    color: #555;
+}
+
+@media (max-width: 600px) {
+
+    .student-group-item {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}

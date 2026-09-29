@@ -5,6 +5,7 @@ import com.example.student_management.service.StudentGroupService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.student_management.service.StudentService;
 
 import java.util.List;
 
@@ -12,12 +13,15 @@ import java.util.List;
 @RequestMapping("/api/groups")
 public class StudentGroupController {
 
+    private final StudentService studentService;
     private final StudentGroupService groupService;
 
     public StudentGroupController(
-            StudentGroupService groupService
+            StudentGroupService groupService,
+            StudentService studentService
     ) {
         this.groupService = groupService;
+        this.studentService = studentService;
     }
 
     private boolean isAdmin(HttpSession session) {
@@ -42,6 +46,31 @@ public class StudentGroupController {
         return ResponseEntity.ok(
                 groupService.getAllGroups()
         );
+    }
+
+    @GetMapping("/{id}/students")
+    public ResponseEntity<?> getGroupStudents(
+            @PathVariable Long id,
+            HttpSession session
+    ) {
+
+        if (!isAdmin(session)) {
+            return ResponseEntity.status(403)
+                    .body("Доступ заборонено");
+        }
+
+        try {
+
+            groupService.getGroupById(id);
+
+            return ResponseEntity.ok(
+                    studentService.getStudentsByGroup(id)
+            );
+
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{id}")

@@ -122,6 +122,141 @@ async function openDisciplinesModal(groupId) {
     }
 }
 
+async function openStudentsModal(groupId) {
+
+    const modal =
+        document.getElementById(
+            "studentsModalOverlay"
+        );
+
+    const studentsSelection =
+        document.getElementById(
+            "studentsSelection"
+        );
+
+    const groupName =
+        document.getElementById(
+            "studentsGroupName"
+        );
+
+    studentsSelection.innerHTML = `
+        <div class="empty-state">
+            Завантаження...
+        </div>
+    `;
+
+    modal.style.display = "flex";
+
+    try {
+
+        const groupResponse =
+            await fetch(`/api/groups/${groupId}`);
+
+        if (!groupResponse.ok) {
+            throw new Error(
+                "Не вдалося завантажити групу"
+            );
+        }
+
+        const group =
+            await groupResponse.json();
+
+        groupName.textContent =
+            `${group.name} • ${group.specialty}`;
+
+
+        const response =
+            await fetch(
+                `/api/groups/${groupId}/students`
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Не вдалося завантажити студентів"
+            );
+        }
+
+        const students =
+            await response.json();
+
+        renderGroupStudents(students);
+
+    } catch (error) {
+
+        console.error(error);
+
+        studentsSelection.innerHTML = `
+            <div class="empty-state">
+                Не вдалося завантажити студентів.
+            </div>
+        `;
+    }
+}
+
+function renderGroupStudents(students) {
+
+    const studentsSelection =
+        document.getElementById(
+            "studentsSelection"
+        );
+
+    if (students.length === 0) {
+
+        studentsSelection.innerHTML = `
+            <div class="empty-state">
+                У цій групі поки немає студентів.
+            </div>
+        `;
+
+        return;
+    }
+
+    studentsSelection.innerHTML = students
+        .map(student => {
+
+            const fullName = [
+                student.lastName,
+                student.firstName,
+                student.patronymic
+            ]
+                .filter(Boolean)
+                .join(" ");
+
+            return `
+                <div class="student-group-item">
+
+                    <div class="student-group-info">
+
+                        <strong>
+                            ${escapeHtml(fullName)}
+                        </strong>
+
+                        <span>
+                            ${escapeHtml(
+                                student.email
+                            )}
+                        </span>
+
+                    </div>
+
+                    <div class="student-group-course">
+                        ${student.course} курс
+                    </div>
+
+                </div>
+            `;
+
+        })
+        .join("");
+}
+
+function closeStudentsModal() {
+
+    document.getElementById(
+        "studentsModalOverlay"
+    ).style.display = "none";
+}
+
 async function checkAdmin() {
 
     const response =
@@ -326,6 +461,25 @@ async function loadGroups() {
                 document.createElement("div");
 
             card.className = "group-card";
+
+            card.addEventListener(
+                "click",
+                () => openStudentsModal(group.id)
+            );
+
+            card.addEventListener(
+                "click",
+                (event) => {
+
+                    if (
+                        event.target.closest(".group-actions")
+                    ) {
+                        return;
+                    }
+
+                    openStudentsModal(group.id);
+                }
+            );
 
             card.innerHTML = `
 
@@ -643,6 +797,13 @@ document
     .addEventListener(
         "click",
         closeDisciplinesModal
+    );
+
+document
+    .getElementById("cancelStudentsButton")
+    .addEventListener(
+        "click",
+        closeStudentsModal
     );
 
 init();

@@ -31,6 +31,42 @@ public class StudentController {
         );
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentStudent(
+            HttpSession session
+    ) {
+
+        Object userId =
+                session.getAttribute("userId");
+
+        Object role =
+                session.getAttribute("userRole");
+
+        if (userId == null ||
+                role == null ||
+                !role.toString().equals("STUDENT")) {
+
+            return ResponseEntity
+                    .status(403)
+                    .body("Доступ заборонено");
+        }
+
+        try {
+
+            return ResponseEntity.ok(
+                    studentService.getCurrentStudent(
+                            Long.valueOf(userId.toString())
+                    )
+            );
+
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(
             @PathVariable Long id,
